@@ -1,0 +1,52 @@
+# https://www.wechall.net/en/challenge/training/prime_factory/index.php
+# Your task is simple:
+# Find the first two primes above 1 million, whose separate digit sums are also prime.
+# As example take 23, which is a prime whose digit sum, 5, is also prime.
+# The solution is the concatination of the two numbers,
+# Example: If the first number is 1,234,567
+# and the second is 8,765,432,
+# your solution is 12345678765432
+
+
+import math
+
+
+def verifica_si_es_primo(r, n):
+    global primo
+    while r > 1:
+        if (n % r) > 0:     # si no es divisible
+            r -= 1
+        else:
+            return False  # no es primo
+    return True  # es primo
+
+
+def verifica_suma(n):  # verificar si el numero cumple la condicion impuesta en el reto
+    resultado = 0
+    while n > 9:
+        resultado = resultado + n % 10
+        n = n / 10
+
+    return True  # numero valido
+
+def sumar_digitos (n):
+    resultado = 0
+    while n > 9:
+        resultado = resultado + n % 10
+        n = n / 10
+    return resultado + n
+
+inicio = input("Dame numero inicial: ")
+cuenta = 0
+for numero in range(inicio, 10000000):
+    if cuenta == 2:  # mostrar solo dos numeros (que se necesitan para el reto)
+        break
+    raiz_inicio = int(math.sqrt(numero))
+    verifica = verifica_si_es_primo(raiz_inicio, numero)
+    if verifica:  # si es primo verificar que la suma de sus digitos tambien lo sean
+        suma = sumar_digitos(numero)
+        raiz_suma = int(math.sqrt(suma))
+        verifica = verifica_si_es_primo(raiz_suma, suma)
+        if verifica:
+            print numero
+            cuenta += 1
