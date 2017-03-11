@@ -1,0 +1,9 @@
+f = open('file_MOD.enc', "rb")
+a= f.read()
+f.close()
+for d in a:
+    if 32 < ord(d) < 127:
+        print chr(ord(d)-31),
+    else:
+        if 32 < ord(d)-63 < 127:
+            print chr(ord(d)-63),
